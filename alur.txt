@@ -1,0 +1,25 @@
+alur menjalankan backend goalpocket :
+# install dependencies
+npm install
+
+# build dan jalankan container
+npm run docker:up
+
+# jalankan migration development
+npm run migrate:dev
+
+# generate prisma client
+npm run generate
+
+# jalankan dev server express (dengan nodemon auto reload)
+npm run dev
+
+--------------------------------------------------------
+deploy railway ->
+npx dotenv -e .env.railway -- npx prisma generate
+npx dotenv -e .env.railway -- npx prisma migrate deploy
+npx dotenv -e .env.railway -- npm run dev
+
+jika ingin mendapatkan endpoint public nya ->
+
+1. jika sudah login langsung jalankan : railway up
