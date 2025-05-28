@@ -389,7 +389,9 @@ Response:
 ```
 ### ✅ Mark Target is Complete
 URL: /api/targets/:id/complete
+
 Method: POST
+
 Headers:
 
 Authorization: Bearer <token>
