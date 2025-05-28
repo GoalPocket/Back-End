@@ -54,7 +54,7 @@ model Tracking {
     user   User   @relation(fields: [userId], references: [id])
 
     targetId String
-    target   Target @relation(fields: [targetId], references: [id])
+    target   Target @relation(fields: [targetId], references: [id], onDelete: Cascade)
 
     type      RecordType
     category  String
