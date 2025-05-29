@@ -32,8 +32,9 @@ URL: /api/auth/register
 Method: POST
 
 Headers:
-
+```
 Content-Type: application/json
+```
 
 Request Body:
 
@@ -72,8 +73,9 @@ URL: /api/auth/login
 Method: POST
 
 Headers:
-
+```
 Content-Type: application/json
+```
 
 Request Body:
 
@@ -101,8 +103,9 @@ URL: /api/user/profile
 Method: GET
 
 Headers:
-
+```
 Authorization: Bearer <token>
+```
 
 Response :
 ```json
@@ -129,9 +132,10 @@ URL: /api/user/profile
 Method: PUT
 
 Headers:
-
+```
 Content-Type: application/json
 Authorization: Bearer <token>
+```
 
 Request Body:
 ```json
@@ -164,9 +168,10 @@ URL: /api/user/change-password
 Method: PUT
 
 Headers:
-
+```
 Content-Type: application/json
 Authorization: Bearer <token>
+```
 
 Request Body:
 ```json
@@ -181,6 +186,7 @@ Response:
     "message": "Password changed successfully"
 }
 ```
+
 ### 🎯 Target
 ➕ Create Target
 URL: /api/targets
@@ -188,10 +194,10 @@ URL: /api/targets
 Method: POST
 
 Headers:
-
+```
 Content-Type: application/json
 Authorization: Bearer <token>
-
+```
 Request Body:
 ```json
 {
@@ -228,8 +234,9 @@ URL: /api/targets
 Method: GET
 
 Headers:
-
+```
 Authorization: Bearer <token>
+```
 
 Response:
 ```json
@@ -256,9 +263,10 @@ URL: /api/targets/:id
 Method: GET
 
 Headers:
-
+```
 Content-Type: application/json
 Authorization: Bearer <token>
+```
 
 Request Body:
 ```json
@@ -295,9 +303,10 @@ URL: /api/trackings
 Method: POST
 
 Headers:
-
+```
 Content-Type: application/json
 Authorization: Bearer <token>
+```
 
 Request Body:
 ```json
@@ -330,8 +339,9 @@ URL: /api/trackings
 Method: GET
 
 Headers:
-
+```
 Authorization: Bearer <token>
+```
 
 Response:
 ```json
@@ -364,8 +374,9 @@ URL: /api/user/summary
 Method: GET
 
 Headers:
-
+```
 Authorization: Bearer <token>
+```
 
 Response:
 ```json
@@ -409,8 +420,9 @@ URL: /api/targets/:id
 Method: DELETE
 
 Headers:
-
+```
 Authorization: Bearer <token>
+```
 
 Response:
 ```json
