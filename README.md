@@ -91,16 +91,6 @@ Response :
         "id": "...",
         "name": "example-kun",
         "email": "user@example.com",
-        "phoneNumber": null,
-        "address": null,
-        "country": null,
-        "currentSaving": 0,
-        "totalIncome": 0,
-        "totalExpense": 0,
-        "avgIncome": 0,
-        "avgExpense": 0,
-        "createdAt": "2025-05-28T20:09:45.355Z",
-        "updatedAt": "2025-05-28T20:09:45.355Z"
     },
     "token": "..." // ini akan digunakan pada semua request http yg memiliki bearer token
 }
@@ -118,18 +108,18 @@ Response :
 ```json
 {
     "id": "...",
-    "name": "example-kun",
-    "email": "user@example.com",
-    "phoneNumber": null,
-    "address": null,
-    "country": null,
-    "currentSaving": 0,
-    "totalIncome": 0,
-    "totalExpense": 0,
-    "avgIncome": 0,
-    "avgExpense": 0,
-    "createdAt": "2025-05-28T20:09:45.355Z",
-    "updatedAt": "2025-05-28T20:09:45.355Z"
+    "name": "John Doe Updated",
+    "email": "john123@example.com",
+    "phoneNumber": "08123456789",
+    "address": "Jakarta",
+    "country": "Indonesia",
+    "createdAt": "2025-05-26T22:35:53.997Z",
+    "updatedAt": "2025-05-26T23:23:52.794Z",
+    "currentSaving": 1500000, // ini hanya muncul ketika sudah pernah menambahkan tracking
+    "totalIncome": 2000000, // ini hanya muncul ketika sudah pernah menambahkan tracking
+    "totalExpense": 500000, // ini hanya muncul ketika sudah pernah menambahkan tracking
+    "avgIncome": 2000000, // ini hanya muncul ketika sudah pernah menambahkan tracking
+    "avgExpense": 500000 // ini hanya muncul ketika sudah pernah menambahkan tracking
 }
 ```
 
