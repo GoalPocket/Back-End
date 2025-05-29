@@ -12,22 +12,23 @@ const getProfile = async (userId) => {
       phoneNumber: true,
       address: true,
       country: true,
-      currentSaving: true,
-      totalIncome: true,
-      totalExpense: true,
-      avgIncome: true,
-      avgExpense: true,
       createdAt: true,
       updatedAt: true,
     },
   });
 
   if (!user) throw new Error("User not found");
-  return user;
+
+  const summary = await getSummary(userId);
+
+  // Gabungkan summary ke dalam user (bukan objek terpisah)
+  return {
+    ...user,
+    ...summary,
+  };
 };
 
 const updateProfile = async (userId, data) => {
-  // Only update optional fields
   const { name, phoneNumber, address, country } = data;
 
   const updatedUser = await prisma.user.update({

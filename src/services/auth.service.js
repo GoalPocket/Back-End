@@ -21,11 +21,6 @@ const register = async (data) => {
       name,
       email,
       password: hashedPassword,
-      currentSaving: 0,
-      totalIncome: 0,
-      totalExpense: 0,
-      avgIncome: 0,
-      avgExpense: 0,
     },
   });
 
@@ -33,7 +28,9 @@ const register = async (data) => {
 };
 
 const login = async (email, password) => {
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
   if (!user) throw new Error("Invalid email or password");
 
   const validPassword = await bcrypt.compare(password, user.password);
@@ -43,7 +40,14 @@ const login = async (email, password) => {
     expiresIn: "7d",
   });
 
-  return { user, token };
+  // Return hanya field yang penting
+  const minimalUser = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+  };
+
+  return { user: minimalUser, token };
 };
 
 export default {
