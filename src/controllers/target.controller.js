@@ -7,6 +7,16 @@ const createTarget = async (req, res, next) => {
     const newTarget = await targetService.createTarget(userId, data);
     res.status(201).json(newTarget);
   } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      return res.status(409).json({
+        error: "Unique constraint failed",
+        message: "Target name already exists",
+      });
+    }
+
     next(err);
   }
 };
@@ -74,7 +84,7 @@ const markTargetAsComplete = async (req, res, next) => {
 };
 
 export default {
-  createTarget, 
+  createTarget,
   getTargets,
   getTarget,
   updateTarget,

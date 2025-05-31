@@ -17,7 +17,6 @@ const register = async (req, res) => {
       },
     });
 
-    // Jangan kirim password ke client
     const { password: _, ...userWithoutPassword } = user;
 
     res.status(201).json({
@@ -25,10 +24,20 @@ const register = async (req, res) => {
       user: userWithoutPassword,
     });
   } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return res.status(409).json({
+        error: "Unique constraint failed",
+        message: "Email is already registered",
+      });
+    }
+
     console.error(error);
     res.status(500).json({
       error: "Registration failed",
-      message: "email has been registered",
+      message: error.message,
     });
   }
 };

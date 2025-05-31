@@ -16,11 +16,11 @@ model User {
     address     String?
     country     String?
 
-    currentSaving Float @default(0) // tabungan saat ini (initial + income - expense)
-    totalIncome   Float @default(0) // total semua income dari tracking
-    totalExpense  Float @default(0) // total semua expense dari tracking
-    avgIncome     Float @default(0) // rata-rata income (opsional)
-    avgExpense    Float @default(0) // rata-rata expense (opsional)
+    currentSaving Float @default(0)
+    totalIncome   Float @default(0)
+    totalExpense  Float @default(0)
+    avgIncome     Float @default(0)
+    avgExpense    Float @default(0)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -39,7 +39,8 @@ model Target {
     duration        String
     initialSaving   Float
     incomeFrequency FrequencyType
-    fixedIncome     Float
+    fixedIncome     Float         @default(0)
+    fixedOutcome    Float         @default(0)
     isCompleted     Boolean       @default(false)
 
     createdAt DateTime @default(now())

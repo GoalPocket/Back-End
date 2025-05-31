@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Target" ADD COLUMN     "fixedOutcome" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ALTER COLUMN "fixedIncome" SET DEFAULT 0;

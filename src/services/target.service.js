@@ -10,6 +10,7 @@ const createTarget = async (userId, data) => {
       initialSaving: data.initialSaving,
       incomeFrequency: data.incomeFrequency,
       fixedIncome: data.fixedIncome,
+      fixedOutcome: data.fixedOutcome,
       isCompleted: false,
     },
   });
