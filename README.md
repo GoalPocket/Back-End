@@ -201,29 +201,32 @@ Authorization: Bearer <token>
 Request Body:
 ```json
 {
-  "name": "Ikut Seminar di Luar negeri",
-  "duration": "6 bulan",
-  "initialSaving": 2000000,
-  "incomeFrequency": "monthly",
+  "name": "kencan akhir bulan july",
+  "duration": "4 bulan",
+  "initialSaving": 400000,
+  "incomeFrequency": "daily",
   "fixedIncome": 500000,
+  "fixedOutcome": 200000,
   "isCompleted": false,
-  "targetAmount": 8000000
+  "targetAmount": 1400000
 }
+
 ```
 Response:
 ```json
 {
     "id": "...",
     "userId": "...",
-    "name": "Ikut Seminar di Luar negeri",
-    "targetAmount": 8000000,
-    "duration": "6 bulan",
-    "initialSaving": 2000000,
-    "incomeFrequency": "monthly",
+    "name": "kencan akhir bulan july",
+    "targetAmount": 1400000,
+    "duration": "4 bulan",
+    "initialSaving": 400000,
+    "incomeFrequency": "daily",
     "fixedIncome": 500000,
+    "fixedOutcome": 200000,
     "isCompleted": false,
-    "createdAt": "2025-05-28T20:17:13.753Z",
-    "updatedAt": "2025-05-28T20:17:13.753Z"
+    "createdAt": "2025-05-31T13:04:36.961Z",
+    "updatedAt": "2025-05-31T13:04:36.961Z"
 }
 ```
 
