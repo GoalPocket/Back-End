@@ -25,14 +25,14 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    targets   Target[]
-    trackings Tracking[]
+    targets   Target[] // relasi Target.user akan ada cascade delete
+    trackings Tracking[] // relasi Tracking.user akan ada cascade delete
 }
 
 model Target {
     id     String @id @default(uuid())
     userId String
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     name            String
     targetAmount    Float
@@ -46,7 +46,7 @@ model Target {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    trackings Tracking[]
+    trackings Tracking[] // relasi Tracking.target akan ada cascade delete
 
     @@unique([userId, name])
 }
@@ -54,7 +54,7 @@ model Target {
 model Tracking {
     id     String @id @default(uuid())
     userId String
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     targetId String
     target   Target @relation(fields: [targetId], references: [id], onDelete: Cascade)
