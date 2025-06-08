@@ -8,7 +8,7 @@ export const createTracking = async (
   const target = await prisma.target.findFirst({
     where: {
       name: targetName,
-      userId: userId,
+      userId,
     },
   });
 
@@ -48,9 +48,9 @@ export const createTracking = async (
   return tracking;
 };
 
-const getTrackingsByUser = async (userId, filters = {}) => {
-  // Filter berdasarkan user dan optional query (type, startDate, endDate)
+export const getTrackingsByUser = async (userId, filters = {}) => {
   const where = { userId };
+
   if (filters.type) where.type = filters.type;
   if (filters.startDate || filters.endDate) {
     where.createdAt = {};
@@ -58,20 +58,20 @@ const getTrackingsByUser = async (userId, filters = {}) => {
     if (filters.endDate) where.createdAt.lte = new Date(filters.endDate);
   }
 
-  return await prisma.tracking.findMany({
+  return prisma.tracking.findMany({
     where,
     orderBy: { createdAt: "desc" },
   });
 };
 
-const getTrackingHistory = async (userId) => {
-  return await prisma.tracking.findMany({
+export const getTrackingHistory = async (userId) => {
+  return prisma.tracking.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
   });
 };
 
-const deleteTracking = async (userId, trackingId) => {
+export const deleteTracking = async (userId, trackingId) => {
   const tracking = await prisma.tracking.findUnique({
     where: { id: trackingId },
   });
@@ -80,7 +80,7 @@ const deleteTracking = async (userId, trackingId) => {
     throw new Error("Tracking not found or unauthorized");
   }
 
-  // Sebelum menghapus tracking, sesuaikan kembali nilai summary user
+  // Koreksi summary user sebelum hapus tracking
   const adjustment = {
     currentSaving:
       tracking.type === "income"
@@ -99,7 +99,7 @@ const deleteTracking = async (userId, trackingId) => {
     data: adjustment,
   });
 
-  return await prisma.tracking.delete({ where: { id: trackingId } });
+  return prisma.tracking.delete({ where: { id: trackingId } });
 };
 
 export default {

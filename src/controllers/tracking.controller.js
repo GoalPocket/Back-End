@@ -2,15 +2,15 @@ import trackingService from "../services/tracking.service.js";
 
 export const createTracking = async (req, res) => {
   try {
-    const userId = req.user.id; // pastikan middleware JWT menyimpan user ID di req.user
+    const userId = req.user.id; // Pastikan middleware autentikasi sudah set req.user
     const tracking = await trackingService.createTracking(userId, req.body);
-    res.json(tracking);
+    res.status(201).json(tracking);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
-const getTrackings = async (req, res, next) => {
+export const getTrackings = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const filters = {
@@ -25,7 +25,7 @@ const getTrackings = async (req, res, next) => {
   }
 };
 
-const getTrackingHistory = async (req, res, next) => {
+export const getTrackingHistory = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const history = await trackingService.getTrackingHistory(userId);
@@ -35,10 +35,13 @@ const getTrackingHistory = async (req, res, next) => {
   }
 };
 
-const deleteTracking = async (req, res, next) => {
+export const deleteTracking = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const trackingId = req.params.id;
+    const trackingId = Number(req.params.id);
+    if (isNaN(trackingId)) {
+      return res.status(400).json({ error: "Invalid tracking ID" });
+    }
     await trackingService.deleteTracking(userId, trackingId);
     res.json({ message: "Tracking deleted successfully" });
   } catch (err) {
