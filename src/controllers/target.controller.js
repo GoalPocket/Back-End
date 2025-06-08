@@ -1,4 +1,6 @@
 import targetService from "../services/target.service.js";
+import { PrismaClient, Prisma } from "@prisma/client";
+const prisma = new PrismaClient();
 
 const createTarget = async (req, res, next) => {
   try {

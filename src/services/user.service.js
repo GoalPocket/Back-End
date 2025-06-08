@@ -89,6 +89,18 @@ const getSummary = async (userId) => {
 
   const currentSaving = totalIncome - totalExpense;
 
+  // ⛳ Tambahkan langkah ini agar summary tersimpan di DB
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      totalIncome,
+      totalExpense,
+      avgIncome,
+      avgExpense,
+      currentSaving,
+    },
+  });
+
   return {
     currentSaving,
     totalIncome,

@@ -30,10 +30,13 @@ const changePassword = async (req, res) => {
 
 const getSummary = async (req, res) => {
   try {
-    const summary = await userService.getSummary(req.user.id);
+    const userId = req.user.id;
+
+    const summary = await userService.getSummary(userId);
+
     res.json(summary);
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 

@@ -34,7 +34,7 @@ model Target {
     userId String
     user   User   @relation(fields: [userId], references: [id])
 
-    name            String        @unique
+    name            String
     targetAmount    Float
     duration        String
     initialSaving   Float
@@ -47,6 +47,8 @@ model Target {
     updatedAt DateTime @updatedAt
 
     trackings Tracking[]
+
+    @@unique([userId, name])
 }
 
 model Tracking {
