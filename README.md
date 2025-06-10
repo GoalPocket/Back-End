@@ -433,3 +433,67 @@ Response:
     "message": "Target deleted successfully"
 }
 ```
+
+=====================================================================================================
+
+# 🤖 ML Prediction – Prediksi Saldo Keuangan
+GoalPocket backend terintegrasi dengan Machine Learning API yang memprediksi saldo masa depan berdasarkan histori finansial pengguna.
+
+Frontend cukup mengakses endpoint ini via backend, tanpa perlu kontak langsung ke ML API eksternal.
+
+### 🔮 Predict Saldo
+URL: /api/ml/predict-saldo
+
+Method: POST
+
+Headers:
+```json
+Content-Type: application/json  
+Authorization: Bearer <token>
+```
+
+📥 Request Body
+Berisi data histori finansial 7 hari terakhir pengguna dengan format:
+
+```json
+{
+  "data": [
+    [asset, liability, income, expenses],
+    [asset, liability, income, expenses],
+    [asset, liability, income, expenses],
+    [asset, liability, income, expenses],
+    [asset, liability, income, expenses],
+    [asset, liability, income, expenses],
+    [asset, liability, income, expenses]
+  ]
+}
+```
+contoh : 
+```json
+{
+  "data": [
+    [500000000, 400000000, 10000000, 20000000],
+    [510000000, 390000000, 12000000, 21000000],
+    [520000000, 380000000, 13000000, 22000000],
+    [530000000, 370000000, 14000000, 23000000],
+    [540000000, 360000000, 15000000, 24000000],
+    [550000000, 350000000, 16000000, 25000000],
+    [560000000, 340000000, 17000000, 26000000]
+  ]
+}
+```
+✅ Response :
+```json
+{
+  "prediction": [[1.4415650367736816]]
+}
+```
+
+ℹ️ Catatan Teknis
+ML model dideploy terpisah menggunakan TensorFlow di Railway.
+
+Endpoint backend akan meneruskan request ini ke:
+```json
+https://ml-api-production-6fd5.up.railway.app/predict
+```
+Namun frontend tidak perlu mengakses URL di atas secara langsung.
