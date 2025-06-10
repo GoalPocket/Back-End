@@ -31,5 +31,14 @@ services:
       - /app/node_modules
     command: npm run dev
 
+  ml-api:
+    build:
+      context: ./ml-api
+    container_name: ml-api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - app
+
 volumes:
   postgres_data:

@@ -1,16 +1,21 @@
+# ML API folder (jika dipisah repo)
+ml-api/
+
+# Node.js
 node_modules/
-
-.env
-.env.*    
-
-.prisma/
-*.db      
-
 dist/
 build/
-
 *.log
 
+# Prisma
+.prisma/
+*.db
+
+# Env
+.env
+.env.*
+
+# OS & Editor
 .DS_Store
 *.swp
 *.swo
