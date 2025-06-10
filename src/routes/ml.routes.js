@@ -1,23 +1,39 @@
-// ml.routes.js (atau controller/handler)
+// routes/ml.routes.js
 
 import express from "express";
 import axios from "axios";
 
 const router = express.Router();
 
+// Endpoint untuk memprediksi saldo
 router.post("/predict-saldo", async (req, res) => {
+  const { data } = req.body;
+
+  // Validasi dasar
+  if (!Array.isArray(data) || data.length === 0 || !Array.isArray(data[0])) {
+    return res.status(400).json({
+      error: "Format data tidak valid. Harus berupa array 2 dimensi.",
+    });
+  }
+
   try {
-    const response = await axios.post(
-      "https://ml-api-production-6fd5.up.railway.app/predict",
-      {
-        data: req.body.data, // pastikan formatnya: List of 7x[4 angka]
-      }
+    const mlResponse = await axios.post(
+      // Gunakan alamat production saat sudah live
+      // "https://ml-api-production-6fd5.up.railway.app/predict",
+      "http://localhost:8000/predict",
+      { data }
     );
 
-    res.json(response.data);
+    res.status(200).json(mlResponse.data);
   } catch (error) {
-    console.error("❌ Error kirim ke ML API:", error.message);
-    res.status(500).json({ error: "Gagal memprediksi saldo" });
+    console.error("❌ Error mengirim ke ML API:", error.message);
+
+    const status = error.response?.status || 500;
+    const message =
+      error.response?.data?.error ||
+      "Gagal memprediksi saldo. Silakan coba lagi nanti.";
+
+    res.status(status).json({ error: message });
   }
 });
 
