@@ -436,12 +436,17 @@ Response:
 
 ======================================================================================
 
-# 🔧 BACKEND REPO – GoalPocket API
-### 📡 Deskripsi
-Backend utama GoalPocket yang terhubung dengan ML API untuk memprediksi saldo masa depan pengguna berdasarkan histori finansial mereka.
-Frontend tidak perlu langsung memanggil ML API, cukup akses ke endpoint backend ini.
+# 🧠 GoalPocket Backend – ML Saldo Prediction Integration
 
-### 🔮 Endpoint Prediksi Saldo
+Repositori ini adalah backend utama GoalPocket, terintegrasi dengan ML API untuk memprediksi saldo masa depan pengguna berdasarkan histori finansial 7 hari terakhir.
+
+Frontend cukup memanggil endpoint dari backend ini — **tidak perlu mengakses ML API langsung**. Backend akan meneruskan permintaan ke ML API, mengelola validasi, dan memformat respons akhir.
+
+---
+
+## 🔮 Endpoint: Prediksi Saldo
+
+### URL
 URL: /api/ml/predict-saldo
 Method: POST
 
@@ -458,6 +463,7 @@ Authorization: Bearer <token>
     [asset, liability, income, expenses, savings, loan],
     [asset, liability, income, expenses, savings, loan],
     ...
+    // total 7 baris (7 hari)
   ]
 }
 ```
@@ -465,22 +471,32 @@ contoh:
 ```json
 {
   "data": [
-    [500000000, 400000000, 10000000, 20000000, 1000000, 5000000],
-    [510000000, 390000000, 12000000, 21000000, 1100000, 5000000],
-    ...
+    [500000000, 400000000, 10000000, 20000000, 5000000, 10000000],
+    [510000000, 390000000, 12000000, 21000000, 5200000, 9000000],
+    [520000000, 380000000, 13000000, 22000000, 5400000, 8000000],
+    [530000000, 370000000, 14000000, 23000000, 5600000, 7000000],
+    [540000000, 360000000, 15000000, 24000000, 5800000, 6000000],
+    [550000000, 350000000, 16000000, 25000000, 6000000, 5000000],
+    [560000000, 340000000, 17000000, 26000000, 6200000, 4000000]
   ]
 }
+
 ```
 
 ✅ Response:
 ```json
 {
   "prediction": [
-    "Rp123.456.789",
-    "Rp130.000.000",
-    ...
+    "Rp9.187.123",
+    "Rp9.300.874",
+    "Rp9.401.201",
+    "Rp9.510.987",
+    "Rp9.620.005",
+    "Rp9.725.492",
+    "Rp9.833.200"
   ]
 }
+
 ```
 Jika scaler tidak tersedia:
 ```json
@@ -489,10 +505,41 @@ Jika scaler tidak tersedia:
   "note": "Hasil belum di-inverse karena scaler_y.pkl tidak ditemukan."
 }
 ```
-#⚙️ Routing ke ML API
-File routing: routes/ml.routes.js
-Backend ini meneruskan request ke ML API:
+# 🔗 Integrasi dengan ML API
+Backend ini akan meneruskan data ke: 
 ```json
-const mlResponse = await axios.post("https://ml-api-production-6fd5.up.railway.app/predict", { data });
+POST https://ml-api-production-6fd5.up.railway.app/predict
+```
+
+Backend bertugas menangani:
+
+Validasi format data
+
+Error handling dari ML API
+
+Translasi respons ke format yang dimengerti frontend
+
+### 📦 Teknologi yang Digunakan
+Node.js
+
+Express.js
+
+Axios
+
+Middleware Proxy ke ML API
+
+### 🛠️ Status
+✅ Siap digunakan frontend
+
+🚧 Endpoint ML API masih disesuaikan dengan domain publik
+```json
+---
+
+## ✨ ML API README juga sudah tepat
+Karena ML API tidak diakses langsung oleh frontend, dokumentasi endpoint `/predict` cukup ringkas dan teknis. Jika kamu ingin, kita bisa tambahkan bagian "Testing via curl / Postman" juga di sana.
+
+---
+
+Apakah kamu ingin aku buatkan juga file `README.md` terpisah untuk langsung kamu paste ke masing-masing repo?
 
 ```
