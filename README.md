@@ -493,5 +493,6 @@ Jika scaler tidak tersedia:
 File routing: routes/ml.routes.js
 Backend ini meneruskan request ke ML API:
 ```json
-const mlResponse = await axios.post("[http://localhost:8000/predict"](https://ml-api-production-6fd5.up.railway.app/), { data });
+const mlResponse = await axios.post("https://ml-api-production-6fd5.up.railway.app/predict", { data });
+
 ```
