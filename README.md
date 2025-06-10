@@ -434,66 +434,64 @@ Response:
 }
 ```
 
-=====================================================================================================
+======================================================================================
 
-# 🤖 ML Prediction – Prediksi Saldo Keuangan
-GoalPocket backend terintegrasi dengan Machine Learning API yang memprediksi saldo masa depan berdasarkan histori finansial pengguna.
+# 🔧 BACKEND REPO – GoalPocket API
+### 📡 Deskripsi
+Backend utama GoalPocket yang terhubung dengan ML API untuk memprediksi saldo masa depan pengguna berdasarkan histori finansial mereka.
+Frontend tidak perlu langsung memanggil ML API, cukup akses ke endpoint backend ini.
 
-Frontend cukup mengakses endpoint ini via backend, tanpa perlu kontak langsung ke ML API eksternal.
-
-### 🔮 Predict Saldo
+### 🔮 Endpoint Prediksi Saldo
 URL: /api/ml/predict-saldo
-
 Method: POST
 
-Headers:
+📋 Headers:
 ```json
 Content-Type: application/json  
 Authorization: Bearer <token>
 ```
 
 📥 Request Body
-Berisi data histori finansial 7 hari terakhir pengguna dengan format:
-
 ```json
 {
   "data": [
-    [asset, liability, income, expenses],
-    [asset, liability, income, expenses],
-    [asset, liability, income, expenses],
-    [asset, liability, income, expenses],
-    [asset, liability, income, expenses],
-    [asset, liability, income, expenses],
-    [asset, liability, income, expenses]
+    [asset, liability, income, expenses, savings, loan],
+    [asset, liability, income, expenses, savings, loan],
+    ...
   ]
 }
 ```
-contoh : 
+contoh:
 ```json
 {
   "data": [
-    [500000000, 400000000, 10000000, 20000000],
-    [510000000, 390000000, 12000000, 21000000],
-    [520000000, 380000000, 13000000, 22000000],
-    [530000000, 370000000, 14000000, 23000000],
-    [540000000, 360000000, 15000000, 24000000],
-    [550000000, 350000000, 16000000, 25000000],
-    [560000000, 340000000, 17000000, 26000000]
+    [500000000, 400000000, 10000000, 20000000, 1000000, 5000000],
+    [510000000, 390000000, 12000000, 21000000, 1100000, 5000000],
+    ...
   ]
 }
 ```
-✅ Response :
+
+✅ Response:
 ```json
 {
-  "prediction": [[1.4415650367736816]]
+  "prediction": [
+    "Rp123.456.789",
+    "Rp130.000.000",
+    ...
+  ]
 }
 ```
-
-ℹ️ Catatan Teknis
-ML model dideploy terpisah menggunakan TensorFlow di Railway.
-
-Endpoint backend akan meneruskan request ini ke:
+Jika scaler tidak tersedia:
 ```json
-https://ml-api-production-6fd5.up.railway.app/predict
+{
+  "prediction": [[1.4415650367736816]],
+  "note": "Hasil belum di-inverse karena scaler_y.pkl tidak ditemukan."
+}
 ```
-Namun frontend tidak perlu mengakses URL di atas secara langsung.
+#⚙️ Routing ke ML API
+File routing: routes/ml.routes.js
+Backend ini meneruskan request ke ML API:
+```json
+const mlResponse = await axios.post("[http://localhost:8000/predict"](https://ml-api-production-6fd5.up.railway.app/), { data });
+```
