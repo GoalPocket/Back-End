@@ -19,8 +19,7 @@ router.post("/predict-saldo", async (req, res) => {
   try {
     const mlResponse = await axios.post(
       // Gunakan alamat production saat sudah live
-      // "https://ml-api-production-6fd5.up.railway.app/predict",
-      "http://localhost:8000/predict",
+      "https://ml-api-production-6fd5.up.railway.app/predict",
       { data }
     );
 

@@ -38,8 +38,8 @@ export const getTrackingHistory = async (req, res, next) => {
 export const deleteTracking = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const trackingId = Number(req.params.id);
-    if (isNaN(trackingId)) {
+    const trackingId = req.params.id;
+    if (!trackingId || typeof trackingId !== "string") {
       return res.status(400).json({ error: "Invalid tracking ID" });
     }
     await trackingService.deleteTracking(userId, trackingId);
