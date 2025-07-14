@@ -25,8 +25,8 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    targets   Target[] // relasi Target.user akan ada cascade delete
-    trackings Tracking[] // relasi Tracking.user akan ada cascade delete
+    targets   Target[] 
+    trackings Tracking[] 
 }
 
 model Target {

@@ -5,21 +5,16 @@ import axios from "axios";
 
 const router = express.Router();
 
-// Endpoint untuk memprediksi saldo
 router.post("/predict-saldo", async (req, res) => {
   const { data } = req.body;
-
-  // Validasi dasar
   if (!Array.isArray(data) || data.length === 0 || !Array.isArray(data[0])) {
     return res.status(400).json({
       error: "Format data tidak valid. Harus berupa array 2 dimensi.",
     });
   }
-
   try {
     const mlResponse = await axios.post(
-      // Gunakan alamat production saat sudah live
-      "https://ml-api-production-6fd5.up.railway.app/predict",
+      "https://web-production-680b.up.railway.app/predict",
       { data }
     );
 

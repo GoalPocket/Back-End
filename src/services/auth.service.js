@@ -4,11 +4,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_here";
-
 const register = async (data) => {
   const { name, email, password } = data;
-
-  // Cek user sudah ada atau belum
   const existingUser = await prisma.user.findUnique({ where: { email } });
   if (existingUser) throw new Error("Email already registered");
 
@@ -32,10 +29,8 @@ const login = async (email, password) => {
     where: { email },
   });
   if (!user) throw new Error("Invalid email or password");
-
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword) throw new Error("Invalid email or password");
-
   const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
     expiresIn: "7d",
   });
